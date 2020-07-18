@@ -19,29 +19,7 @@ I'll use Cramer's rule for this purpose.
 """
 
 import numpy as np
-
-def cramer_rule3x3(matrix, column):
-
-	#Determinant of the base matrix
-	D = np.linalg.det(matrix)
-
-	#Saving copy of column of independent terms
-	cpy = column.copy()
-
-	#Saving three copies of the base matrix
-	Da, Db, Dc = matrix.copy(), matrix.copy(), matrix.copy()
-
-	#Computing Da, Db and Dc
-	for i in range(len(cpy)):
-		Da[i,0] = cpy[i]
-		Db[i,1] = cpy[i]
-		Dc[i,2] = cpy[i]
-
-	#Determinants of Da, Db and Dc respectively
-	Da, Db, Dc = np.linalg.det(Da), np.linalg.det(Db), np.linalg.det(Dc)
-
-	#Returning list of constants values
-	return [Da/D, Db/D, Dc/D]
+from cramer_rule import cramer_ruleNxN
 
 def analysis(results, equations):
 	
@@ -51,31 +29,26 @@ def analysis(results, equations):
 
 	#Trying to apply the Cramer's Rule
 	try:
-		return cramer_rule3x3(equations, results)
+		return cramer_ruleNxN(equations, results, 3)
 	except ZeroDivisionError:
 		return None
 
-#By clustering equations (1), (2) and (3) respectively we've got a consistent behaviour, given a = 1, b = 3 and c = 5.
+#Doing analysis of each linear combination
 constants = analysis([23.4, 41.5, 52.4], [[1, 2.3, 3.1], [2, 4.5, 5.2], [3, 5.3, 6.7]])
 print(f"Solution for linear combination of (1), (2) and (3): {list(map(round, constants))}", end = "\n" * 2)
 
-#By clustering equations (1), (2) and (4) respectively we've got a consistent behaviour, given a = 1, b = 3 and c = 5.
 constants = analysis([23.4, 41.5, 57.8], [[1, 2.3, 3.1], [2, 4.5, 5.2], [4, 6.1, 7.1]])
 print(f"Solution for linear combination of (1), (2) and (4): {list(map(round, constants))}", end = "\n" * 2)
 
-#By clustering equations (1), (2) and (5) respectively we've got a consistent behaviour, given a = 1, b = 3 and c = 5.
 constants = analysis([23.4, 41.5, 63.9], [[1, 2.3, 3.1], [2, 4.5, 5.2], [5, 6.8, 7.7]])
 print(f"Solution for linear combination of (1), (2) and (5): {list(map(round, constants))}", end = "\n" * 2)
 
-#By clustering equations (3), (4) and (5) respectively we've got a consistent behaviour, given a = 1, b = 3 and c = 5.
 constants = analysis([52.4, 57.8, 63.9], [[3, 5.3, 6.7], [4, 6.1, 7.1], [5, 6.8, 7.7]])
 print(f"Solution for linear combination of (3), (4) and (5): {list(map(round, constants))}", end = "\n" * 2)
 
-#By clustering equations (3), (4) and (1) respectively we've got a consistent behaviour, given a = 1, b = 3 and c = 5.
 constants = analysis([52.4, 57.8, 23.4], [[3, 5.3, 6.7], [4, 6.1, 7.1], [1, 2.3, 3.1]])
 print(f"Solution for linear combination of (3), (4) and (1): {list(map(round, constants))}", end = "\n" * 2)
 
-#By clustering equations (3), (4) and (2) respectively we've got a consistent behaviour, given a = 1, b = 3 and c = 5.
 constants = analysis([52.4, 57.8, 41.5], [[3, 5.3, 6.7], [4, 6.1, 7.1], [2, 4.5, 5.2]])
 print(f"Solution for linear combination of (3), (4) and (2): {list(map(round, constants))}", end = "\n" * 2)
 

@@ -33,9 +33,16 @@ c = 900
 v = 0.001
 
 def f(x0, y0): 
+	"""
+	Given function
+	"""
 	return (A /(p*c*v)) * ( E*O*(pow(298, 4) - pow(y0, 4)) + hc * (298 - y0) ) 
 
 def next_step(h, x0, y0):
+	"""
+	Calculator of next step of
+	Runge-Kutta iterations
+	"""
 	k1 = f(x0, y0)
 	k2 = 2 * f(x0 + (1/2)*h, y0 + (1/2)*h*k1)
 	k3 =  2 * f(x0 + (1/2)*h, y0 + (1/2)*h*k2)
@@ -55,6 +62,7 @@ def runge_kutta(h, x0, y0):
 	return solution
 
 def main():
+	
 	#Runge Kutta step's size
 	h = 1
 

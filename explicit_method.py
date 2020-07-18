@@ -30,6 +30,11 @@ left_t = 120
 right_t = 50
 
 def next_temperature(prev_temp, prev_next_temp, prev_to_prev_temp, lamb):
+	"""
+	Calculator of the next temperature
+	to be computed with the explicit
+	method
+	"""
 	return prev_temp + lamb * (prev_next_temp - 2*prev_temp + prev_to_prev_temp)
 
 def explicit_method(table, alpha):
@@ -85,7 +90,6 @@ fig, axs = plt.subplots(3, sharex = True, sharey = True)
 
 axs[0].plot(table1[:, 1], table1[:, range(2, 12)], 'green')
 axs[0].set_title('alpha = 0.167')
-#axs0_0 = axs[0].twinx([0.004, 0.008, 0.012, 0.016, 0.020, 0.024, 0.028, 0.032, 0.036, 0.040])
 
 axs[1].plot(table2[:, 1], table2[:, range(2, 12)], 'red')
 axs[1].set_title('alpha = 0.1515')

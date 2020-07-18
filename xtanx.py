@@ -17,7 +17,7 @@ def main():
 	roots = np.array([0.])
 	roots = np.repeat(roots, 20).reshape(20, 1)
 
-	#Finding roots through optimization function of Scipy
+	#Finding roots through optimization function of SciPy
 	for i in range(20):
 		roots[i] = optimize.root(f, i).x[0]
 		

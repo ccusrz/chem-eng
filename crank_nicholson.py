@@ -16,39 +16,13 @@ Crank-Nicholson method, according to the convergence standard.
 
 import numpy as np
 import matplotlib.pyplot as plt
+from cramer_rule import cramer_ruleNxN
 
 #Constants
 alpha = 0.18
 length = 120
 delta_X = 24
 delta_T = 10
-
-def cramer_rule4x4(matrix, column):
-
-	#print(matrix)
-	#Determinant of the base matrix
-	D = np.linalg.det(matrix)
-
-	#Saving copy of column of independent terms
-	cpy = column.copy()
-
-	#print(cpy)
-	#print(D)
-	#Saving three copies of the base matrix
-	Da, Db, Dc, Dd = matrix.copy(), matrix.copy(), matrix.copy(), matrix.copy()
-
-	#Computing Da, Db and Dc
-	for i in range(len(cpy)):
-		Da[i,0] = cpy[i]
-		Db[i,1] = cpy[i]
-		Dc[i,2] = cpy[i]
-		Dd[i,3] = cpy[i]
-
-	#Determinants of Da, Db and Dc respectively
-	Da, Db, Dc, Dd = np.linalg.det(Da), np.linalg.det(Db), np.linalg.det(Dc), np.linalg.det(Dd)
-
-	#Returning list of resulting values
-	return [Da/D, Db/D, Dc/D, Dd/D]
 
 def left_temperature(T):
 	return 6*(15-T)
@@ -60,7 +34,12 @@ def first_temperatures(X):
 	return 10 * (X**2)
 
 def next_temperature(lamb, prev_to_next_temp, curr_row, last_temp_to_next_temp):
-	
+	"""
+	Assorting equations and 
+	a column of their results, 
+	so we can find the temperatures
+	through Cramer's Rule
+	"""
 	column = np.array([ curr_row[0] + curr_row[2] + prev_to_next_temp,
 						curr_row[1] + curr_row[3],
 						curr_row[2] + curr_row[4],
@@ -74,7 +53,7 @@ def next_temperature(lamb, prev_to_next_temp, curr_row, last_temp_to_next_temp):
 						[0, 0, -1, 4] 
 						])
 
-	return cramer_rule4x4(matrix, column)
+	return cramer_ruleNxN(matrix, column, 4)
 
 def crank_nicholson(table, alpha):
 
