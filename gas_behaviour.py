@@ -14,15 +14,6 @@ the table's values and the curve that best fit them
 are plotted.
 
 c) Find the rough volume value (v) when pressure is of 17 units.
-
-d) Use divided differences to find the polynomial 
-that best fits the data set and find the volume value
-when pressure is of 17 units. (Compare results between d, b and c)
-
-e) The employed work to compress the gas can be expressed as:
-
-	w = Integral from p1 to p2 of v*dP
-Find w from 5 to 20 units.
 """
 
 import numpy as np
@@ -67,17 +58,6 @@ def main():
 
 #(c)
 	print(f'Rough value of v when pressure is of 17 units: {abs(polynomial(coeffs, 17))}')
-
-#(d)
-	
-#(e)
-	
-	"""
-	aux = lambda v: integrate.quad(to_integrate, 5, 20, args=v)
-	w = list(map(aux, P_v[1, 1:]))
-	plt.plot(w, 'g')
-	plt.show()
-	"""
 	
 if __name__ == '__main__':
 	main()
